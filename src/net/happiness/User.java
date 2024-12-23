@@ -2,69 +2,62 @@ package net.happiness;
 
 public class User {
 
-    private String firstName;
-    private String lastName;
-    private int age;
-    private String phoneNumber;
-    private String address;
+    private final String firstName;
+    private final String lastName;
+    private final Integer age;
+    private final String phoneNumber;
+    private final String address;
 
-    public User(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public User(UserBuilder builder) {
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.age = builder.age;
+        this.phoneNumber = builder.phoneNumber;
+        this.address = builder.address;
     }
 
-    public User(String firstName, String lastName, int age) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append("Name: ").append(this.firstName).append(" ").append(this.lastName).append(";\n")
+                .append("Age: ").append(this.age).append("; ")
+                .append("Phone: ").append(this.phoneNumber).append("; ")
+                .append("Address: ").append(this.address).append(".")
+                .toString();
     }
 
-    public User(String firstName, String lastName, int age, String phoneNumber, String address) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.age = age;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-    }
+    public static class UserBuilder {
 
-    public String getFirstName() {
-        return firstName;
-    }
+        private final String firstName;
+        private final String lastName;
+        private Integer age;
+        private String phoneNumber;
+        private String address;
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+        public UserBuilder(String firstName, String lastName) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
 
-    public String getLastName() {
-        return lastName;
-    }
+        public UserBuilder age(Integer age) {
+            this.age = age;
+            return this;
+        }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+        public UserBuilder phoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+            return this;
+        }
 
-    public int getAge() {
-        return age;
-    }
+        public UserBuilder address(String address) {
+            this.address = address;
+            return this;
+        }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+        public User build() {
+            return new User(this);
+        }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
 }
